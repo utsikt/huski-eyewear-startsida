@@ -127,13 +127,13 @@
         mask-image: linear-gradient(90deg,
           #000 0 calc(var(--paint) - 7%), rgba(0,0,0,.55) calc(var(--paint) - 2%),
           transparent calc(var(--paint) + 3%));
-        animation: paint .62s cubic-bezier(.16,.9,.3,1) .15s forwards;
+        animation: paint .62s cubic-bezier(.16,.9,.3,1) .65s forwards;
       }
       @keyframes paint { from { --paint: 0%; } to { --paint: 112%; } }
 
       /* HUSKI EYEWEAR skrivs fram, ett tecken i taget */
       .eyetext { clip-path: inset(0 100% 0 0);
-                 animation: typ .68s linear .74s forwards; }
+                 animation: typ .68s linear 1.24s forwards; }
       @keyframes typ {
         0% { clip-path: inset(0 100.00% 0 0); animation-timing-function: steps(1, end); }
         5% { clip-path: inset(0 92.31% 0 0); animation-timing-function: steps(1, end); }
@@ -154,10 +154,10 @@
 
       .c.m { opacity: 0; animation: appear .4s ease-out forwards; }
       @keyframes appear { to { opacity: 1; } }
-      .tl { animation-delay: 1.32s; }
-      .tr { animation-delay: 1.38s; }
-      .br { animation-delay: 1.44s; }
-      .lft { animation-delay: 1.50s; }
+      .tl { animation-delay: 1.82s; }
+      .tr { animation-delay: 1.88s; }
+      .br { animation-delay: 1.94s; }
+      .lft { animation-delay: 2.00s; }
 
       .shot img { transition: transform .3s ease-out; }
       .cell:hover .shot img { transform: scale(1.02); }
