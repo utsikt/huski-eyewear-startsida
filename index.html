@@ -345,30 +345,27 @@
                   text-align: center; }
       .cartbar .close { padding: 14px 4px 14px 14px; }
 
-      /* Hornen i heron: i mobil far tre plats, inte fyra.
-         Matten och modellkoderna gar bort. Fargnamnen och raden om vardagen
-         ar viktigare for nagon som ser sidan forsta gangen i en telefon.
-         Alla tre samlas uppe, dar fotots egen botten ar ljus och texten gar
-         att lasa. Nere pa bilden ar det rott och morkt, dar skulle svart
-         text forsvinna.
-         .hero far ingen padding: bilden ligger absolut mot .hero, sa padding
-         skulle flytta bilden och forstora ett-fonster-regeln. Marginalerna
-         sitter pa etiketterna i stallet. */
-      .hero { display: grid; grid-template-columns: minmax(0, 1fr) auto;
-              align-content: start; }
-      .hero .c { position: static; }
+      /* Hornen i heron i mobil.
+         Matten och modellkoderna gar bort, de sager minst.
+         Fargnamnen star lodratt till vanster precis som pa dator, och
+         vardagsraden star lodratt till hoger. Vagratt fick de inte plats
+         utan att lagga sig over hennes ansikte.
+         Kanterna av bilden ar ljusa hela vagen ner, sa svart text gar att
+         lasa dar. Nere i mitten ar det rott och morkt. */
       .tl { display: none; }
+      .lft, .br { white-space: nowrap; letter-spacing: .20em;
+                  writing-mode: vertical-rl; text-align: center;
+                  max-width: none; margin: 0; }
       .lft { display: block !important;
-             position: static !important;
-             top: auto !important; bottom: auto !important; left: auto !important;
-             writing-mode: horizontal-tb !important;
-             transform: none !important;
-             letter-spacing: .14em;
-             order: 1; margin: clamp(12px, 2.4vw, 34px) 0 0 clamp(16px, 2.8vw, 40px); }
-      .tr { order: 2; margin: clamp(12px, 2.4vw, 34px) clamp(16px, 2.8vw, 40px) 0 0; }
-      .br { display: block; order: 3; grid-column: 1 / -1; text-align: left;
-            margin: 6px clamp(16px, 2.8vw, 40px) 0 clamp(16px, 2.8vw, 40px);
-            max-width: none; }
+             position: absolute !important;
+             left: clamp(6px, 1.6vw, 40px) !important;
+             right: auto !important;
+             top: 50% !important; bottom: auto !important;
+             transform: translateY(-50%) rotate(180deg) !important; }
+      .br { display: block; position: absolute;
+            right: clamp(6px, 1.6vw, 40px); left: auto;
+            top: auto; bottom: clamp(12px, 2.4vw, 34px);
+            transform: none; letter-spacing: .12em; }
 
       /* Rytm: samma luft mellan alla band */
       .three { padding-top: 52px; padding-bottom: 44px; }
