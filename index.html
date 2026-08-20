@@ -78,8 +78,9 @@
                  gap: clamp(20px, 3.9vw, 56px); }
     .nums .big { font-size: clamp(28px, 5.3vw, 76px); line-height: .92; color: #FDF7F4; }
 
-    .origin .framebox { position: relative; width: 100%;
-                       height: clamp(200px, 33vw, 470px); overflow: hidden; }
+    /* Slutbilden ska aldrig kapas. Rutan far bildens egen hojd,
+       oavsett hur brett fonstret ar. */
+    .origin .framebox { position: relative; width: 100%; }
     .origin img { display: block; width: 100%; height: auto; }
     .origin p { margin: 0; padding-top: clamp(18px, 2.4vw, 34px); padding-bottom: clamp(18px, 2.4vw, 34px); }
 
@@ -471,7 +472,7 @@
   </div>
 
   <div class="origin">
-    <div class="framebox"><img src="cover.jpg" alt="Delad bild: surfare i solnedgang till vanster, man i parkas i snostorm till hoger, bada i HUSKI EYEWEAR" style="position: absolute; left: 0px; top: 0px"></div>
+    <div class="framebox"><img src="cover.jpg" alt="Delad bild: surfare i solnedgang till vanster, man i parkas i snostorm till hoger, bada i HUSKI EYEWEAR"></div>
     <p class="m edge">MADE IN ITALY. DESIGNED IN SWEDEN.</p>
   </div>
 
