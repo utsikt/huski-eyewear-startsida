@@ -1,6 +1,6 @@
 {
-  "rewrites": [
-    { "source": "/", "has": [{ "type": "host", "value": "(www\\.)?huskieyewear\\.com" }], "destination": "/coming-soon/index.html" },
-    { "source": "/model.webp", "has": [{ "type": "host", "value": "(www\\.)?huskieyewear\\.com" }], "destination": "/coming-soon/model.webp" }
+  "redirects": [
+    { "source": "/", "has": [{ "type": "host", "value": "huskieyewear.com" }], "destination": "https://www.huskieyewear.com/coming-soon/", "permanent": false },
+    { "source": "/", "has": [{ "type": "host", "value": "www.huskieyewear.com" }], "destination": "/coming-soon/", "permanent": false }
   ]
 }
