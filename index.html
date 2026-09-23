@@ -1,10 +1,13 @@
 <!doctype html>
+<!-- HUSKI EYEWEAR website, VERSION 2.0, 2026-09-16.
+     v1 ligger orord i ../forhandsvisning/. Inte pushad. -->
 <html lang="en">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>HUSKI EYEWEAR</title>
-  <meta name="description" content="WORLD CUP collection. Sunglasses made in Italy, designed in Sweden.">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23DA291C'/%3E%3C/svg%3E">
+  <meta name="description" content="WORLD CUP collection. TR90 frames, polycarbonate lenses. Made in Italy, designed in Sweden.">
   
 
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@100..900&amp;display=swap">
@@ -47,6 +50,14 @@
                height: max(100%, min(1150px, 155cqw));
                aspect-ratio: 1500 / 2143;
                container-type: size; }
+
+    /* Hjaltens uttoning. Ett eget lager i papperets farg som bara andrar opacity och
+       scaleY, tva saker webblasaren flyttar utan att rita om bilden. Ligger over fotot
+       men under hornfakta, for de kommer senare i koden. */
+    .herofade { position: absolute; left: 0; right: 0; bottom: 0; height: 560px;
+                background: linear-gradient(to top, #FDF7F4 0%, rgba(253,247,244,0) 100%);
+                opacity: 0; transform: scaleY(.45); transform-origin: bottom;
+                pointer-events: none; will-change: opacity, transform; }
     .heroimg > img { display: block; width: 100%; height: 100%; object-fit: contain; }
     .eyetext { position: absolute; left: 49.3%; top: 13.18%;
                transform: translate(-50%, -50%);
@@ -57,19 +68,25 @@
     .tl { top: clamp(12px, 2.4vw, 34px); left: clamp(16px, 2.8vw, 40px); }
     .tr { top: clamp(12px, 2.4vw, 34px); right: clamp(16px, 2.8vw, 40px); text-align: right; }
     .br { bottom: clamp(12px, 2.4vw, 34px); right: clamp(16px, 2.8vw, 40px); text-align: right; }
+    .bl { bottom: clamp(12px, 2.4vw, 34px); left: calc(clamp(16px, 2.8vw, 40px) + 72px); text-align: left; }
     .lft { left: clamp(16px, 2.8vw, 40px); top: 50%;
            transform: translateY(-50%) rotate(180deg);
            writing-mode: vertical-rl; letter-spacing: .42em; }
 
     .three { padding-top: clamp(56px, 8.4vw, 120px); padding-bottom: clamp(46px, 6.7vw, 96px); }
     .three h2 { font-size: clamp(30px, 4.8vw, 68px); line-height: .96;
-                margin: 0 0 clamp(30px, 4.5vw, 64px); }
+                margin: 0 0 clamp(14px, 1.6vw, 22px); }
+    .soon { margin: 0 0 clamp(30px, 4.5vw, 64px); max-width: 52ch;
+            font-family: 'Archivo', system-ui, sans-serif; font-weight: 600;
+            font-size: clamp(11px, .9vw, 13px); letter-spacing: .20em;
+            text-transform: uppercase; line-height: 1.7; color: #DA291C; }
+    .soon span { color: #4C4C4B; }
     .grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr));
             gap: clamp(14px, 2.5vw, 36px); }
     .cell { display: flex; flex-direction: column; gap: clamp(7px, 1vw, 14px); }
     .shot { background: #EFE7E0; aspect-ratio: 5 / 3; display: flex;
             align-items: center; justify-content: center; overflow: hidden; }
-    .shot img { width: 92%; height: auto; }
+    
     .cell .nm { font-size: clamp(14px, 1.7vw, 24px); line-height: 1; }
 
     .nums { background: #011111; color: #FDF7F4;
@@ -93,11 +110,13 @@
     @media (max-width: 820px) {
       .grid, .nums .row { grid-template-columns: 1fr; }
       .lft { display: none; }
+      .bl { left: clamp(16px, 2.8vw, 40px); }
       .m { white-space: normal; letter-spacing: .22em; }
       .br { max-width: 46%; }
     }
     @media (max-width: 520px) {
       .tl, .tr { font-size: 8px; letter-spacing: .16em; }
+      .bl.aimark { font-size: 10px; letter-spacing: .20em; }
       .br { display: none; }
     }
 
@@ -113,7 +132,7 @@
     .buy { display: inline-block; align-self: flex-start;
            margin-top: 10px; padding: 7px 26px 8px;
            font-family: 'Archivo', system-ui, sans-serif; font-weight: 600;
-           font-size: clamp(9px, 0.75vw, 12px); letter-spacing: .22em;
+           font-size: 12px; letter-spacing: .22em;
            text-transform: uppercase; color: #FFFFFF; white-space: nowrap;
            background-image: url("bar.png");
            background-size: 104% 235%; background-position: center;
@@ -158,10 +177,11 @@
       .tl { animation-delay: 1.82s; }
       .tr { animation-delay: 1.88s; }
       .br { animation-delay: 1.94s; }
+      .bl { animation-delay: 1.94s; }
       .lft { animation-delay: 2.00s; }
 
-      .shot img { transition: transform .3s ease-out; }
-      .cell:hover .shot img { transform: scale(1.02); }
+      .lens-track img { transition: transform .3s ease-out; }
+      .cell:hover .lens-track img { transform: scale(1.02); }
       .buy { transition: filter .2s ease-out; }
       .buy:hover { filter: brightness(.88); }
     }
@@ -182,17 +202,18 @@
 
     /* menyn: rott streck nar markoren ar over */
     .bar nav a { position: relative; display: inline-block; cursor: pointer; }
+    .bar nav a { white-space: nowrap; }
     .bar nav a::after {
       content: ""; position: absolute; left: -8%; top: 38%;
-      width: 0; height: 62%;
+      width: 116%; height: 62%; transform: scaleX(0); transform-origin: left center;
       background-image: url("bar.png");
       background-size: 100% 100%; background-repeat: no-repeat;
       pointer-events: none;
     }
     @media (prefers-reduced-motion: no-preference) {
-      .bar nav a::after { transition: width .2s ease-out; }
+      .bar nav a::after { transition: transform .2s ease-out; }
     }
-    .bar nav a:hover::after { width: 116%; }
+    .bar nav a:hover::after { transform: scaleX(1); }
 
     /* About i det svarta faltet */
     .rule { height: 1px; background: rgba(253,247,244,.22);
@@ -275,8 +296,10 @@
            gap: 10px; margin-top: clamp(26px,3.2vw,44px);
            border-top: 1px solid rgba(17,17,17,.14); padding-top: clamp(18px,2.2vw,28px); }
     .sum.off { display: none; }
-    .sum .tot { font-family: 'HUSKI Sans Hero', system-ui, sans-serif;
+    .sum .tot { text-transform: none; font-family: 'HUSKI Sans Hero', system-ui, sans-serif;
                 font-size: clamp(24px,3.2vw,46px); line-height: 1; }
+    /* HUSKI Sans Hero draws every letter as a capital, so the unit is set in Archivo. */
+    .sum .tot-unit { font-family: 'Archivo', system-ui, sans-serif; font-weight: 300; font-size: .5em; letter-spacing: .16em; }
     .checkout { margin-top: clamp(18px,2.2vw,30px); padding: 13px 46px 14px;
                 font-family: 'Archivo', system-ui, sans-serif; font-weight: 600;
                 font-size: clamp(10px,.82vw,13px); letter-spacing: .24em;
@@ -284,6 +307,7 @@
                 background-image: url("bar.png");
                 background-size: 104% 235%; background-position: center;
                 background-repeat: no-repeat; cursor: pointer; }
+    .checkout[aria-disabled="true"] { filter: grayscale(1); opacity: .55; cursor: not-allowed; }
     .empty { padding: clamp(30px,4vw,56px) 0 clamp(40px,5vw,70px);
              border-top: 1px solid rgba(17,17,17,.14); }
     .empty.off { display: none; }
@@ -294,6 +318,7 @@
                border-bottom: 1px solid #111111;
                padding-top: 12px; padding-bottom: 12px; }
     .cartbar img { height: 34px; width: auto; display: block; }
+    .cartbar .home { display: block; cursor: pointer; line-height: 0; }
     .cartbar .close { margin-left: auto; cursor: pointer; }
     @media (max-width: 700px) {
       .line { grid-template-columns: 92px 1fr; }
@@ -309,13 +334,6 @@
        ror sig inte en pixel av det som star har. */
     @media (max-width: 820px) {
       /* About: de fasta pixelbredderna slas av, texten foljer skarmen */
-      /* !important behovs: bredderna star som inline-stil pa elementet,
-         och inline slar allt annat utom !important. */
-      .about .col { position: static !important; left: auto !important;
-                    top: auto !important; width: auto !important;
-                    height: auto !important; }
-      .about .col p { max-width: none !important; position: static !important;
-                      left: auto !important; top: auto !important; }
       .about { gap: 24px; }
       .about .say { font-size: clamp(26px, 8.8vw, 46px); }
       .about .lbl { margin-bottom: 4px; }
@@ -367,6 +385,10 @@
             right: clamp(6px, 1.6vw, 40px); left: auto;
             top: auto; bottom: clamp(12px, 2.4vw, 34px);
             transform: none; letter-spacing: .12em; }
+      /* AI-raden bryts till tva rader sa den stannar i det ljusa vanstra
+         hornet och aldrig hamnar pa det morkroda byxbenet. */
+      .bl { line-height: 1.6; left: clamp(6px, 1.6vw, 40px); }
+      .bl span { display: block; white-space: nowrap; }
 
       /* Rytm: samma luft mellan alla band */
       .three { padding-top: 52px; padding-bottom: 44px; }
@@ -385,8 +407,219 @@
       .three h2 { font-size: 30px; }
     }
 
+
+    .lens-shot { background: #EFE7E0; aspect-ratio: 5 / 3; display: flex;
+                 align-items: center; justify-content: center; overflow: hidden; }
+    
+    .lens-claim { margin-top: 4px;
+                  font-family: 'Archivo', system-ui, sans-serif; font-weight: 600;
+                  font-size: clamp(13px, 1.05vw, 16px); letter-spacing: .06em;
+                  text-transform: uppercase; line-height: 1.35; color: #111111; }
+    .cell .nm { font-size: clamp(20px, 2.2vw, 32px); }
+    .lens-note { margin-top: clamp(14px, 1.6vw, 22px); padding-top: clamp(12px, 1.2vw, 16px);
+                 border-top: 1px solid rgba(17,17,17,.14); display: flex; flex-direction: column; gap: 6px; }
+    .lens-note .lens-claim { margin-top: 0; }
+    .lens-note .lens-body { max-width: 34ch; }
+    .lens-body { margin: 0; max-width: 38ch;
+                 font-family: 'Archivo', system-ui, sans-serif; font-weight: 300;
+                 font-size: clamp(14px, 1vw, 17px); line-height: 1.62;
+                 color: #4C4C4B; text-wrap: pretty; }
+
+    @media (max-width: 820px) {
+      .lens-claim { font-size: 14px; }
+      .lens-body { max-width: 46ch; }
+    }
+
+
+    /* ---------- THE TECHNICAL CHAPTER: opening band of the dark chapter ---------- */
+    /* Sits directly on top of .nums. Same background, matching top padding and no
+       bottom padding, so the two bands read as one dark chapter. */
+    .tech-band { background: #011111; color: #FDF7F4;
+                 padding-top: clamp(52px, 7.3vw, 104px); padding-bottom: 0; }
+    /* .m and .display carry paper colours by default. Reset them inside the band. */
+    .tech-band .m { color: #999999; }
+    .tech-band .display { color: #FDF7F4; }
+
+    .tech-head { font-size: clamp(27px, 4.5vw, 74px); line-height: .94;
+                 margin: clamp(8px, 1.2vw, 20px) 0 clamp(22px, 3vw, 44px); }
+    .tech-lead { margin-bottom: clamp(34px, 4.6vw, 70px); }
+    .tech-lead p { margin: 0; max-width: 48ch;
+                   font-family: 'Archivo', system-ui, sans-serif;
+                   font-size: clamp(17px, 1.53vw, 24px); line-height: 1.45;
+                   text-wrap: pretty; }
+    .tech-lead .tech-first { font-weight: 500; color: #FDF7F4; }
+    .tech-lead .tech-second { font-weight: 300; color: rgba(253,247,244,.72); }
+
+    .tech-claims { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr));
+                   gap: clamp(14px, 2.5vw, 36px); }
+    .tech-claim { display: flex; flex-direction: column; gap: clamp(10px, 1.2vw, 16px); }
+    /* Same short red rule as .about .col::before. Red stays a highlight. */
+    .tech-claim::before { content: ""; display: block;
+                          width: clamp(48px, 5vw, 76px); height: 3px; background: #DA291C; }
+    .tech-claim h3 { font-size: clamp(15px, 1.5vw, 22px); line-height: 1.06; margin: 0; }
+    .tech-claim p { margin: 0;
+                    font-family: 'Archivo', system-ui, sans-serif; font-weight: 300;
+                    font-size: clamp(14px, 1vw, 17px); line-height: 1.6;
+                    color: rgba(253,247,244,.72); text-wrap: pretty; }
+
+    .tech-spechead { font-size: clamp(22px, 3.2vw, 46px); line-height: .98;
+                     margin: clamp(46px, 6.2vw, 92px) 0 clamp(20px, 2.6vw, 38px); }
+
+    .tech-spec { border-top: 1px solid rgba(253,247,244,.22); }
+    .tech-row { display: grid; grid-template-columns: clamp(140px, 16vw, 230px) 1fr;
+                gap: clamp(12px, 2vw, 32px); align-items: baseline;
+                padding: clamp(12px, 1.5vw, 20px) 0; }
+    .tech-row + .tech-row { border-top: 1px solid rgba(253,247,244,.22); }
+    .tech-val { font-family: 'Archivo', system-ui, sans-serif; font-weight: 500;
+                font-size: clamp(14px, 1.05vw, 18px); line-height: 1.5;
+                color: #FDF7F4; text-wrap: pretty; }
+
+    /* Closing hairline. Same look as .rule, but no bottom margin: the padding-top
+       of .nums supplies the air under it. */
+    .tech-cta { padding: clamp(26px, 3.2vw, 44px) 0 0; }
+    .tech-divider { height: 1px; background: rgba(253,247,244,.22);
+                    margin: clamp(40px, 5.4vw, 78px) 0 0; }
+
+    @media (max-width: 820px) {
+      .tech-band { padding-top: 44px; }
+      .tech-head { margin-bottom: 26px; }
+      .tech-lead { margin-bottom: 38px; }
+      .tech-claims { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 30px; }
+      .tech-spechead { margin: 46px 0 22px; }
+      .tech-row { grid-template-columns: 1fr; gap: 6px; padding: 14px 0; }
+      .tech-divider { margin-top: 34px; }
+    }
+
+    @media (max-width: 520px) {
+      .tech-claims { grid-template-columns: 1fr; }
+      .tech-head { font-size: 30px; }
+      .tech-spechead { font-size: 24px; }
+    }
+
+    @supports (animation-timeline: view()) {
+      @media (prefers-reduced-motion: no-preference) {
+        .tech-claim { animation: techliftin .01s linear both;
+                      animation-timeline: view(); animation-range: entry 8% cover 26%; }
+        @keyframes techliftin { from { opacity: 0; transform: translateY(12px); }
+                                to { opacity: 1; transform: translateY(0); } }
+      }
+    }
+
+    /* RETAILERS. A list, not boxes: one hairline above every card.
+       Paper field between a black field and a full-bleed image, so it
+       needs air at the top and at the bottom. */
+    .ret-sec { background: #FDF7F4;
+               padding-top: clamp(56px, 8.4vw, 120px);
+               padding-bottom: clamp(56px, 8.4vw, 120px); }
+    .ret-h { font-size: clamp(30px, 4.8vw, 68px); line-height: .96;
+             margin: 0 0 clamp(12px, 1.5vw, 20px); }
+    .ret-lead { margin: 0 0 clamp(30px, 4.5vw, 64px); max-width: 46ch;
+                font-family: 'Archivo', system-ui, sans-serif; font-weight: 300;
+                font-size: clamp(15px, 1.1vw, 19px); line-height: 1.62;
+                color: #4C4C4B; text-wrap: pretty; }
+
+    .ret-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr));
+                column-gap: clamp(14px, 2.5vw, 36px);
+                row-gap: clamp(26px, 3.4vw, 46px); }
+    .ret-card { display: flex; flex-direction: column;
+                gap: clamp(6px, .8vw, 11px);
+                border-top: 1px solid rgba(17, 17, 17, .14);
+                padding-top: clamp(14px, 1.7vw, 22px); }
+    .ret-card .ret-city { color: #4C4C4B; }
+    .ret-name { font-size: clamp(16px, 1.9vw, 26px); line-height: 1.04; }
+    .ret-addr { margin: 0; max-width: 24ch;
+                font-family: 'Archivo', system-ui, sans-serif; font-weight: 300;
+                font-size: clamp(13px, 1vw, 16px); line-height: 1.5;
+                color: #4C4C4B; }
+    .ret-links { display: flex; flex-wrap: wrap;
+                 gap: clamp(12px, 1.4vw, 20px);
+                 margin-top: clamp(10px, 1.2vw, 16px); padding-top: 0; }
+
+    /* Two classes in every link rule, so the page's own `a` and `.m` rules
+       do not win. The remaining !important rules sit in the 820 px query and
+       are listed at lines 340 and 375; everything else wins on order alone. */
+    .ret-links .ret-link { color: #DA291C; letter-spacing: .16em; }
+    .ret-links .ret-link:hover { color: #B01F16; }
+
+    /* The Instagram handles are not supplied yet. The link keeps the design
+       but stays muted and carries data-pending, so it is easy to find. */
+    .ret-links .ret-link[data-pending] { color: #4C4C4B;
+                                         text-decoration: underline dashed rgba(17, 17, 17, .38);
+                                         text-underline-offset: 4px; }
+    .ret-links .ret-link[data-pending]:hover { color: #4C4C4B; }
+
+    @media (max-width: 820px) {
+      .ret-sec { padding-top: 52px; padding-bottom: 52px; }
+      .ret-grid { grid-template-columns: repeat(2, minmax(0, 1fr));
+                  row-gap: 30px; }
+      .ret-h { margin-bottom: 12px; }
+      .ret-lead { margin-bottom: 30px; }
+      .ret-addr { max-width: none; }
+      /* Touch targets: every link becomes about 45 px high, the same rule the
+         top bar and the buttons already follow under 820 px. */
+      .ret-links { margin-top: 0; }
+      .ret-links .ret-link { padding-top: 13px; padding-bottom: 13px; }
+    }
+
+    @media (max-width: 520px) {
+      .ret-h { font-size: 30px; }
+      .ret-grid { grid-template-columns: 1fr; row-gap: 26px; }
+    }
+
+    /* The section is complete without motion. The reveal only runs where the
+       browser supports it and the visitor has not asked for less motion. */
+    @supports (animation-timeline: view()) {
+      @media (prefers-reduced-motion: no-preference) {
+        .ret-card { animation: ret-liftin .01s linear both;
+                    animation-timeline: view(); animation-range: entry 8% cover 26%; }
+        @keyframes ret-liftin { from { opacity: 0; transform: translateY(12px); }
+                                to { opacity: 1; transform: translateY(0); } }
+      }
+    }
+
+    /* ---------- version 2.0, 2026-09-16 ---------- */
+
+    /* Priset. .m gor all text VERSAL, och da blev "kr" till "KR".
+       Det lasta prisformatet ar "1 490 kr" med litet kr, sa versalerna
+       slas av just har. */
+    .price { color: #DA291C; letter-spacing: .16em; text-transform: none; }
+
+    /* Linskategorin pa produktkortet. Kunden bad tre ganger om att den
+       ska synas innan man klickar kop. */
+    .cardcat { color: #111111; letter-spacing: .16em; }
+
+    /* Menyn fick tva punkter till. I en telefon far fem inte plats bredvid
+       loggan, sa STORES och ABOUT gommer sig under 520 px. Bada sektionerna
+       nas anda genom att skrolla. */
+    @media (max-width: 520px) {
+      .bar nav .navwide { display: none; }
+    }
+
     [data-act]:focus-visible { outline: 2px solid #DA291C; outline-offset: 3px; }
     .cartover.on { visibility: visible; opacity: 1; }
+
+    /* lens gallery: swipe/arrow between views, click for zoom */
+    .shot { position: relative; cursor: zoom-in; }
+    .lens-track { display: flex; width: 100%; height: 100%; transition: transform .35s ease-out; }
+    .lens-track img { flex: 0 0 100%; width: 100%; height: 100%; object-fit: contain; padding: 4%; box-sizing: border-box; }
+    .lens-nav { position: absolute; top: 50%; transform: translateY(-50%); width: 38px; height: 38px;
+                border: 0; border-radius: 0; background: rgba(1,17,17,.78); color: #FDF7F4;
+                font: 26px/1 Archivo, sans-serif; cursor: pointer; opacity: .38; transition: opacity .2s; }
+    .lens-nav.prev { left: 12px; } .lens-nav.next { right: 12px; }
+    .shot:hover .lens-nav, .shot:focus-within .lens-nav { opacity: 1; }
+    .lens-dots { position: absolute; left: 0; right: 0; bottom: 12px; display: flex; justify-content: center; gap: 7px; }
+    .lens-dots span { width: 14px; height: 3px; border-radius: 0; background: rgba(1,17,17,.25); }
+    .lens-dots span.on { background: #DA291C; }
+    @media (max-width: 820px) { .lens-nav { opacity: 1; width: 34px; height: 34px; font-size: 22px; } }
+    .lens-zoom { position: fixed; inset: 0; z-index: 90; background: rgba(1,17,17,.94); display: none;
+                 align-items: center; justify-content: center; }
+    .lens-zoom.open { display: flex; }
+    .lens-zoom img { width: min(92vw, 143vh); aspect-ratio: 5 / 3; object-fit: contain; background: #EFE7E0; padding: 4%; box-sizing: border-box; }
+    .lens-zoom .lens-nav { opacity: 1; width: 52px; height: 52px; font-size: 34px; background: rgba(253,247,244,.15); }
+    .lens-zoom .prev { left: 24px; } .lens-zoom .next { right: 24px; }
+    .lens-zoom-close { position: absolute; top: 20px; right: 24px; border: 0; background: none; color: #FDF7F4;
+                       font: 400 18px/1 Archivo, sans-serif; letter-spacing: .12em; cursor: pointer; }
+    .lens-zoom-name { position: absolute; left: 24px; bottom: 22px; color: #FDF7F4; letter-spacing: .12em; font-size: 13px; }
   </style>
 
 </head>
@@ -399,9 +632,10 @@
   <div class="bar edge">
     <a class="home" tabindex="0" role="button" aria-label="Till toppen" data-act="top"><img src="logo.png" alt="HUSKI EYEWEAR"></a>
     <nav>
-      <a class="m" tabindex="0" role="button" data-act="shop">SHOP</a>
-      <a class="m" tabindex="0" role="button" data-act="about">ABOUT</a>
-      <a class="m" tabindex="0" role="button" data-act="cart">CART<span class="cartnum" id="cartnum"></span></a>
+      <a class="m" tabindex="0" role="button" data-act="shop">COLLECTION</a>
+      <a class="m" tabindex="0" role="button" data-act="tech">TECH</a>
+      <a class="m navwide" tabindex="0" role="button" data-act="stores">STORES</a>
+      <a class="m navwide" tabindex="0" role="button" data-act="about">ABOUT</a>
     </nav>
     <div class="pad"></div>
   </div>
@@ -414,39 +648,134 @@
       <div class="eyebar"><img src="bar.png" alt=""></div>
       <div class="eyetext">HUSKI EYEWEAR</div>
     </div>
-    <div class="c m tl">50-22-145MM<br>WC26-01 / WC26-02<br>CAT. 2-3</div>
+    <div class="herofade" aria-hidden="true"></div>
+    <div class="c m tl">50-22-145MM<br>WC26-01 / WC26-02<br>CAT 2-3</div>
     <div class="c m tr">MADE IN ITALY<br>DESIGNED IN SWEDEN</div>
+    <div class="c m bl aimark"><span>AI-GENERATED</span> <span>PERSON</span></div>
     <div class="c m br">FOR CHAMPIONS OF EVERYDAY LIFE.</div>
     
-  <div class="c m lft" style="top: auto; position: absolute; bottom: 41.37px; transform: rotate(180deg)">CHOCOLATA / CRIOLLO / COLA</div></div>
+  <div class="c m lft" style="top: auto; position: absolute; bottom: 41.37px; transform: rotate(180deg)">COLA / CRIOLLO / CHOCOLATA</div></div>
   </div>
 
   <div class="three edge" id="shop">
     <h2 class="display">Not just colors.<br>Flavours.</h2>
+    <p class="soon">The shop opens shortly.<br><span>Payment goes live when the collection ships.</span></p>
     <div class="grid">
       <div class="cell">
-        <div class="shot"><img src="chocolata.jpg" alt="CHOCOLATA"></div>
+        <div class="shot" data-gallery="cola"><div class="lens-track"><img src="cola.webp" alt="COLA, front view" width="1600" height="960"><img src="cola-side.webp" alt="COLA, side view" loading="lazy" decoding="async" width="1600" height="960"></div><button class="lens-nav prev" type="button" aria-label="Previous image">&#8249;</button><button class="lens-nav next" type="button" aria-label="Next image">&#8250;</button><div class="lens-dots"><span class="on"></span><span></span></div></div>
+        <div class="display nm">COLA</div>
+        <div class="m" style="color: #4C4C4B;">BROWN TRANSPARENT / SMOKE GRADIENT</div>
+        <div class="m cardcat">CAT 3&nbsp;&nbsp;/&nbsp;&nbsp;WC26-02&nbsp;&nbsp;/&nbsp;&nbsp;UNISEX</div>
+        <div class="m price">1&nbsp;490 kr</div>
+        <div class="lens-note"><div class="lens-claim">TURN DOWN THE SUN.</div>
+        <p class="lens-body">A Category 3 lens designed for strong sunlight. More tint. Less glare. Made for bright days when the sun decides to show off.</p></div>
+      </div>
+      <div class="cell">
+        <div class="shot" data-gallery="criollo"><div class="lens-track"><img src="criollo.webp" alt="CRIOLLO, front view" width="1600" height="960"><img src="criollo-side.webp" alt="CRIOLLO, side view" loading="lazy" decoding="async" width="1600" height="960"></div><button class="lens-nav prev" type="button" aria-label="Previous image">&#8249;</button><button class="lens-nav next" type="button" aria-label="Next image">&#8250;</button><div class="lens-dots"><span class="on"></span><span></span></div></div>
+        <div class="display nm">CRIOLLO</div>
+        <div class="m" style="color: #4C4C4B;">BLACK / AMBER LENS</div>
+        <div class="m cardcat">CAT 2&nbsp;&nbsp;/&nbsp;&nbsp;WC26-01&nbsp;&nbsp;/&nbsp;&nbsp;UNISEX</div>
+        <div class="m price">1&nbsp;490 kr</div>
+        <div class="lens-note"><div class="lens-claim">THE LIGHTER SIDE OF DARK.</div>
+        <p class="lens-body">A Category 2 lens for medium sunlight. Lighter than the other two. Made for days that keep changing their mind.</p></div>
+      </div>
+      <div class="cell">
+        <div class="shot" data-gallery="chocolata"><div class="lens-track"><img src="chocolata.webp" alt="CHOCOLATA, front view" width="1600" height="960"><img src="chocolata-side.webp" alt="CHOCOLATA, side view" loading="lazy" decoding="async" width="1600" height="960"></div><button class="lens-nav prev" type="button" aria-label="Previous image">&#8249;</button><button class="lens-nav next" type="button" aria-label="Next image">&#8250;</button><div class="lens-dots"><span class="on"></span><span></span></div></div>
         <div class="display nm">CHOCOLATA</div>
         <div class="m" style="color: #4C4C4B;">CREAM / BROWN GRADIENT</div>
-        <div class="m" style="color: #DA291C; letter-spacing: .16em;">180 €</div>
-        <a class="buy" tabindex="0" role="button" data-act="add:choc">Add to cart</a>
-      </div>
-      <div class="cell">
-        <div class="shot"><img src="criollo.jpg" alt="CRIOLLO"></div>
-        <div class="display nm">CRIOLLO</div>
-        <div class="m" style="color: #4C4C4B;">BLACK / YELLOW LENS</div>
-        <div class="m" style="color: #DA291C; letter-spacing: .16em;">180 €</div>
-        <a class="buy" tabindex="0" role="button" data-act="add:cri">Add to cart</a>
-      </div>
-      <div class="cell">
-        <div class="shot"><img src="cola.jpg" alt="COLA"></div>
-        <div class="display nm">COLA</div>
-        <div class="m" style="color: #4C4C4B;">BROWN / SMOKE GRADIENT</div>
-        <div class="m" style="color: #DA291C; letter-spacing: .16em;">180 €</div>
-        <a class="buy" tabindex="0" role="button" data-act="add:cola">Add to cart</a>
+        <div class="m cardcat">CAT 3&nbsp;&nbsp;/&nbsp;&nbsp;WC26-02&nbsp;&nbsp;/&nbsp;&nbsp;UNISEX</div>
+        <div class="m price">1&nbsp;490 kr</div>
+        <div class="lens-note"><div class="lens-claim">DARKER. BOLDER. CHOCOLATA.</div>
+        <p class="lens-body">A Category 3 lens for strong sunlight with the full HUSKI attitude. Maximum style when somebody turns up the brightness.</p></div>
       </div>
     </div>
   </div>
+
+
+  <section class="tech-band edge" id="tech">
+
+    <div class="m">MADE TO MOVE</div>
+    <h2 class="display tech-head">BUILT TO TAKE A HIT.</h2>
+
+    <div class="tech-lead">
+      <p class="tech-first">A polyamide borrowed from industries where ordinary plastics fail.</p>
+    </div>
+
+    <div class="tech-claims">
+      <div class="tech-claim">
+        <h3 class="display">ULTRA LIGHT</h3>
+        <p>Low density. You stop noticing them on the mountain, on the water, and somewhere you are probably not supposed to be.</p>
+      </div>
+      <div class="tech-claim">
+        <h3 class="display">TOUGH + FLEXIBLE</h3>
+        <p>High impact strength. The frame flexes under pressure and comes back.</p>
+      </div>
+      <div class="tech-claim">
+        <h3 class="display">BUILT FOR THE ELEMENTS</h3>
+        <p>Heat. Cold. Sun. Sweat. Repeat. Resists weather, chemicals and temperature extremes.</p>
+      </div>
+      <div class="tech-claim">
+        <h3 class="display">MADE IN ITALY</h3>
+        <p>Performance does not have to look like equipment. Specialist Italian manufacturing, precision finishing.</p>
+      </div>
+    </div>
+
+    <h2 class="display tech-spechead">THE TECH, WITHOUT THE BULLSHIT.</h2>
+
+    <div class="tech-spec">
+      <div class="tech-row">
+        <div class="m">FRAME</div>
+        <div class="tech-val">TR90 / Grilamid high-performance polyamide</div>
+      </div>
+      <div class="tech-row">
+        <div class="m">LENSES</div>
+        <div class="tech-val">Lightweight polycarbonate</div>
+      </div>
+      <div class="tech-row">
+        <div class="m">IMPACT</div>
+        <div class="tech-val">Polycarbonate lens, tested to resist impact</div>
+      </div>
+      <div class="tech-row">
+        <div class="m">LENS PROTECTION</div>
+        <div class="tech-val">UV protection + anti-scratch treatment</div>
+      </div>
+      <div class="tech-row">
+        <div class="m">POLARISATION</div>
+        <div class="tech-val">Non-polarised</div>
+      </div>
+      <div class="tech-row">
+        <div class="m">FILTERS</div>
+        <div class="tech-val">Cola CAT 3 / Criollo CAT 2 / Chocolata CAT 3</div>
+      </div>
+      <div class="tech-row">
+        <div class="m">WEIGHT</div>
+        <div class="tech-val">30 g</div>
+      </div>
+      <div class="tech-row">
+        <div class="m">SIZE</div>
+        <div class="tech-val">50-22-145mm</div>
+      </div>
+      <div class="tech-row">
+        <div class="m">MODEL</div>
+        <div class="tech-val">WC26-01 / WC26-02</div>
+      </div>
+      <div class="tech-row">
+        <div class="m">PRODUCTION</div>
+        <div class="tech-val">Made in Italy</div>
+      </div>
+      <!-- LEGAL HOLD, row removed from the page 2026-09-22 before going live on huskieyewear.com.
+           It claimed CE conformity. The EU declaration of conformity and the technical file do not
+           yet exist in HUSKI's name; the factory opened 2026-09-22 and Jessica forwards them when
+           they arrive. Put this row back only when both papers are in hand:
+           <div class="tech-row">
+             <div class="m">COMPLIANCE</div>
+             <div class="tech-val">CE compliant and tested to applicable European sunglass standards</div>
+           </div> -->
+    </div>
+
+    <div class="tech-divider"></div>
+
+  </section>
 
   <div class="nums edge" id="about">
     <div class="row">
@@ -464,12 +793,63 @@
       </div>
     </div>
       <div class="rule"></div>
-      <div class="about">
+      <div class="about" id="about-text">
         <div class="m lbl" style="color: #999999;">ABOUT</div>
         <div class="say"><span class="out">PLAY IT SAFE</span>.<br>WEAR THE VICTORY.<br>LIVE THE LIFESTYLE.</div>
-        <div class="col" style="position: relative; left: -43.61px; width: 581px; height: 237px"><p style="max-width: 576.64px; position: relative"><span class="lead">For those who live life in the fast lane and refuse to let sunshine turn into a grey routine, Huski Eyewear is the obvious choice.</span> These sunglasses are crafted with a perfect balance of sleek Scandinavian design and uncompromising functionality. Whether you are hitting the ski slopes, running along the coast, or simply enjoying a fast-paced lunch in the sun, they stay securely in place. Thanks to their featherlight weight, you will barely notice you are wearing them, while the durable materials are built to withstand all your adventures.</p></div>
+        <div class="col"><p><span class="lead">For those who refuse to let sunshine turn into a grey routine.</span> Scandinavian design, built to stay put: on the slope, on the coast, and at a fast lunch in the sun.</p></div>
       </div>
+      <div class="tech-cta"><a class="buy" tabindex="0" role="button" data-act="shop">See the collection</a></div>
   </div>
+
+  <section class="ret-sec edge" id="retailers">
+    <!-- Instagram supplied by Jessica 2026-09-18 for three of four stores.
+         MOOD is still missing, so that card deliberately has no Instagram link. -->
+    <h2 class="display ret-h">FIND US IN STORE.</h2>
+    <p class="ret-lead">HUSKI EYEWEAR is carried by a small number of stores we actually like.</p>
+
+    <div class="ret-grid">
+
+      <div class="ret-card">
+        <div class="m ret-city">STOCKHOLM</div>
+        <div class="display ret-name">StureOptikern</div>
+        <p class="ret-addr">Grev Turegatan 9, Stockholm</p>
+        <div class="ret-links">
+          <a class="m ret-link" href="https://stureoptikern.se" target="_blank" rel="noopener">STUREOPTIKERN.SE</a>
+          <a class="m ret-link" href="https://www.instagram.com/stureoptikern" target="_blank" rel="noopener">INSTAGRAM</a>
+        </div>
+      </div>
+
+      <div class="ret-card">
+        <div class="m ret-city">STOCKHOLM</div>
+        <div class="display ret-name">MOOD Stockholm</div>
+        <p class="ret-addr">MOOD-gallerian, Stockholm</p>
+        <div class="ret-links">
+          <a class="m ret-link" href="https://moodstockholm.se" target="_blank" rel="noopener">MOODSTOCKHOLM.SE</a>
+        </div>
+      </div>
+
+      <div class="ret-card">
+        <div class="m ret-city">MARBELLA</div>
+        <div class="display ret-name">Ballroom Blitz</div>
+        <p class="ret-addr">Av Mediterraneo 5, San Pedro</p>
+        <div class="ret-links">
+          <a class="m ret-link" href="https://ballroomblitz.com" target="_blank" rel="noopener">BALLROOMBLITZ.COM</a>
+          <a class="m ret-link" href="https://www.instagram.com/ballroomblitzz" target="_blank" rel="noopener">INSTAGRAM</a>
+        </div>
+      </div>
+
+      <div class="ret-card">
+        <div class="m ret-city">PALMA DE MALLORCA</div>
+        <div class="display ret-name">WINK</div>
+        <p class="ret-addr">Carrer de Demeto 7, Palma</p>
+        <div class="ret-links">
+          <a class="m ret-link" href="https://wink.nu" target="_blank" rel="noopener">WINK.NU</a>
+          <a class="m ret-link" href="https://www.instagram.com/winkmallorca" target="_blank" rel="noopener">INSTAGRAM</a>
+        </div>
+      </div>
+
+    </div>
+  </section>
 
   <div class="origin">
     <div class="framebox"><img src="cover.jpg" alt="Delad bild: surfare i solnedgang till vanster, man i parkas i snostorm till hoger, bada i HUSKI EYEWEAR"></div>
@@ -477,115 +857,21 @@
   </div>
 
   <div class="foot edge">
-    <div class="m">HUSKI EYEWEAR<br>LINNEGATAN 38, 114 47 STOCKHOLM<br>INFO@HUSKIEYEWEAR.COM</div>
+    <div class="m">HUSKI EYEWEAR<br>QUADRA EYEWEAR AB<br>ORG. NO. 559582-2767<br>VAT SE559582276701<br>LINNEGATAN 38, 114 47 STOCKHOLM, SWEDEN<br>+46 760 96 16 94<br>INFO@HUSKIEYEWEAR.COM<br><br>14-DAY RIGHT OF WITHDRAWAL. FULL TERMS AT CHECKOUT.</div>
     <div class="display keep">KEEP GOING</div>
   </div>
 
-  <div class="cartover" id="cartover">
-    <div class="cartbar edge">
-      <img src="logo.png" alt="HUSKI EYEWEAR">
-      <a class="m close" tabindex="0" role="button" data-act="close">CLOSE</a>
-    </div>
-    <div class="cartwrap edge">
-      <div class="cart-h">Cart</div>
-
-      <div class="line off" id="line-choc">
-        <div class="thumb"><img src="chocolata.jpg" alt="CHOCOLATA"></div>
-        <div class="who">
-          <div class="nm">CHOCOLATA</div>
-          <div class="m" style="color: #4C4C4B;">CREAM / BROWN GRADIENT</div>
-          <div class="m" style="color: #4C4C4B;">50-22-145MM &nbsp;/&nbsp; WC26-02</div>
-        </div>
-        <div class="who" style="align-items: flex-end;">
-          <div class="qty m"><span class="step" tabindex="0" role="button" data-act="dec:choc">−</span><span id="q-choc">0</span><span class="step" tabindex="0" role="button" data-act="add:choc">+</span></div>
-          <div class="m" style="color: #DA291C; letter-spacing: .16em;">180 €</div>
-          <div class="m step" tabindex="0" role="button" style="color: #4C4C4B;" data-act="rm:choc">Remove</div>
-        </div>
-      </div>
-
-      <div class="line off" id="line-cri">
-        <div class="thumb"><img src="criollo.jpg" alt="CRIOLLO"></div>
-        <div class="who">
-          <div class="nm">CRIOLLO</div>
-          <div class="m" style="color: #4C4C4B;">BLACK / YELLOW LENS</div>
-          <div class="m" style="color: #4C4C4B;">50-22-145MM &nbsp;/&nbsp; WC26-01</div>
-        </div>
-        <div class="who" style="align-items: flex-end;">
-          <div class="qty m"><span class="step" tabindex="0" role="button" data-act="dec:cri">−</span><span id="q-cri">0</span><span class="step" tabindex="0" role="button" data-act="add:cri">+</span></div>
-          <div class="m" style="color: #DA291C; letter-spacing: .16em;">180 €</div>
-          <div class="m step" tabindex="0" role="button" style="color: #4C4C4B;" data-act="rm:cri">Remove</div>
-        </div>
-      </div>
-
-      <div class="line off" id="line-cola">
-        <div class="thumb"><img src="cola.jpg" alt="COLA"></div>
-        <div class="who">
-          <div class="nm">COLA</div>
-          <div class="m" style="color: #4C4C4B;">BROWN / SMOKE GRADIENT</div>
-          <div class="m" style="color: #4C4C4B;">50-22-145MM &nbsp;/&nbsp; WC26-02</div>
-        </div>
-        <div class="who" style="align-items: flex-end;">
-          <div class="qty m"><span class="step" tabindex="0" role="button" data-act="dec:cola">−</span><span id="q-cola">0</span><span class="step" tabindex="0" role="button" data-act="add:cola">+</span></div>
-          <div class="m" style="color: #DA291C; letter-spacing: .16em;">180 €</div>
-          <div class="m step" tabindex="0" role="button" style="color: #4C4C4B;" data-act="rm:cola">Remove</div>
-        </div>
-      </div>
-
-      <div class="empty" id="empty">
-        <p>Your cart is empty.</p>
-        <a class="buy" tabindex="0" role="button" data-act="close">Back to the collection</a>
-      </div>
-
-      <div class="sum off" id="sum">
-        <div class="m" style="color: #4C4C4B;">Shipping calculated at checkout</div>
-        <div class="tot"><span id="total">0</span> €</div>
-        <a class="checkout">Checkout</a>
-      </div>
-    </div>
-  </div>
-
-  <div class="flash" id="flash"></div>
+  <div class="flash" id="flash" role="status" aria-live="polite"></div>
 </div>
 
 
 
 <script>
 (function () {
-  var PRICE = 180;
-  var NAMES = { choc: 'Chocolata', cri: 'Criollo', cola: 'Cola' };
-  var n = { choc: 0, cri: 0, cola: 0 };
-  var $ = function (id) { return document.getElementById(id); };
-  var flashTimer = null;
-
-  function draw() {
-    var total = n.choc + n.cri + n.cola;
-    $('cartnum').textContent = total ? '(' + total + ')' : '';
-    $('total').textContent = String(total * PRICE);
-    ['choc', 'cri', 'cola'].forEach(function (k) {
-      $('q-' + k).textContent = String(n[k]);
-      $('line-' + k).className = n[k] > 0 ? 'line' : 'line off';
-    });
-    $('sum').className = total ? 'sum' : 'sum off';
-    $('empty').className = total ? 'empty off' : 'empty';
-  }
-
-  function flash(msg) {
-    var el = $('flash');
-    el.textContent = msg;
-    el.className = 'flash';
-    void el.offsetWidth;
-    el.className = 'flash on';
-    clearTimeout(flashTimer);
-    flashTimer = setTimeout(function () { el.className = 'flash'; }, 1700);
-  }
 
   function jump(id) {
     var el = document.getElementById(id);
     if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-  }
-
-  function openCart(on) {
-    $('cartover').className = on ? 'cartover on' : 'cartover';
   }
 
   document.addEventListener('click', function (e) {
@@ -593,20 +879,14 @@
     if (!t) return;
     e.preventDefault();
     var act = t.getAttribute('data-act');
-    if (act === 'shop')  { openCart(false); jump('shop'); return; }
-    if (act === 'about') { openCart(false); jump('about'); return; }
-    if (act === 'cart')  { openCart(true); return; }
-    if (act === 'close') { openCart(false); return; }
-    if (act === 'top')   { openCart(false); window.scrollTo({ top: 0, behavior: 'smooth' }); return; }
-    var parts = act.split(':'), what = parts[0], key = parts[1];
-    if (what === 'add') { n[key] += 1; flash(NAMES[key] + ' added to cart'); }
-    if (what === 'dec') { n[key] = Math.max(0, n[key] - 1); }
-    if (what === 'rm')  { n[key] = 0; }
-    draw();
+    if (act === 'shop')   { jump('shop'); return; }
+    if (act === 'about')  { jump('about-text'); return; }
+    if (act === 'tech')   { jump('tech'); return; }
+    if (act === 'stores') { jump('retailers'); return; }
+    if (act === 'top')    { window.scrollTo({ top: 0, behavior: 'smooth' }); return; }
   });
 
   document.addEventListener('keydown', function (e) {
-    if (e.key === 'Escape') openCart(false);
     if ((e.key === 'Enter' || e.key === ' ') && document.activeElement &&
         document.activeElement.hasAttribute('data-act')) {
       e.preventDefault();
@@ -614,9 +894,74 @@
     }
   });
 
-  draw();
 })();
 </script>
 
+
+<div class="lens-zoom" id="lens-zoom" aria-modal="true" role="dialog">
+  <button class="lens-zoom-close" type="button">CLOSE</button>
+  <button class="lens-nav prev" type="button" aria-label="Previous image">&#8249;</button>
+  <img src="chocolata.webp" alt="" hidden>
+  <button class="lens-nav next" type="button" aria-label="Next image">&#8250;</button>
+  <div class="lens-zoom-name display"></div>
+</div>
+<script>
+(function(){
+  var zoom=document.getElementById('lens-zoom'), zimg=zoom.querySelector('img'), zname=zoom.querySelector('.lens-zoom-name');
+  var cur=null;
+  document.querySelectorAll('.shot[data-gallery]').forEach(function(shot){
+    var track=shot.querySelector('.lens-track'), imgs=track.querySelectorAll('img'), dots=shot.querySelectorAll('.lens-dots span');
+    var i=0, x0=null;
+    function go(n){ i=(n+imgs.length)%imgs.length; track.style.transform='translateX(-'+(i*100)+'%)';
+      dots.forEach(function(d,k){ d.classList.toggle('on',k===i); }); if(cur===shot) show(); }
+    function show(){ zimg.hidden=false; zimg.src=imgs[i].src; zimg.alt=imgs[i].alt; zname.textContent=shot.dataset.gallery.toUpperCase(); }
+    shot.querySelector('.prev').addEventListener('click',function(e){ e.stopPropagation(); go(i-1); });
+    shot.querySelector('.next').addEventListener('click',function(e){ e.stopPropagation(); go(i+1); });
+    shot.addEventListener('click',function(){ cur=shot; show(); zoom.classList.add('open'); document.body.style.overflow='hidden'; });
+    shot.addEventListener('touchstart',function(e){ x0=e.touches[0].clientX; },{passive:true});
+    shot.addEventListener('touchend',function(e){ if(x0===null) return; var dx=e.changedTouches[0].clientX-x0; x0=null;
+      if(Math.abs(dx)>40) go(dx<0?i+1:i-1); });
+    shot._go=function(d){ go(i+d); };
+  });
+  function close(){ zoom.classList.remove('open'); document.body.style.overflow=''; cur=null; }
+  zoom.querySelector('.lens-zoom-close').addEventListener('click',close);
+  zoom.addEventListener('click',function(e){ if(e.target===zoom) close(); });
+  zoom.querySelector('.prev').addEventListener('click',function(){ cur&&cur._go(-1); });
+  zoom.querySelector('.next').addEventListener('click',function(){ cur&&cur._go(1); });
+  document.addEventListener('keydown',function(e){ if(!zoom.classList.contains('open')) return;
+    if(e.key==='Escape') close(); if(e.key==='ArrowLeft') cur._go(-1); if(e.key==='ArrowRight') cur._go(1); });
+})();
+</script>
+<script>
+/* Hero dissolve. Tony's call 2026-09-18: nothing at rest, the fade arrives as soon as
+   the visitor scrolls. Only opacity and transform are touched, so the browser composites
+   instead of repainting the photo every frame. An earlier version animated a mask on the
+   image itself and flickered. */
+(function () {
+  var hero = document.querySelector('.hero');
+  var veil = document.querySelector('.herofade');
+  if (!hero || !veil) { return; }
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) { return; }
+  var ticking = false;
+  function paint() {
+    ticking = false;
+    var h = hero.getBoundingClientRect().height || 1;
+    var x = Math.min(1, Math.max(0, window.scrollY / h));
+    /* Aggressive at the start, calm afterwards. The seam must be covered within the
+       first ~40 px of scroll, so opacity reaches 1 at 5 % of a hero height. The depth
+       keeps growing gently after that, which is what makes it read as soft. */
+    var op = Math.min(1, x / 0.05);
+    var t = 1 - (1 - x) * (1 - x);
+    veil.style.opacity = op.toFixed(3);
+    veil.style.transform = 'scaleY(' + (0.45 + 0.55 * t).toFixed(3) + ')';
+  }
+  function onScroll() {
+    if (!ticking) { ticking = true; requestAnimationFrame(paint); }
+  }
+  window.addEventListener('scroll', onScroll, { passive: true });
+  window.addEventListener('resize', onScroll, { passive: true });
+  paint();
+})();
+</script>
 </body>
 </html>

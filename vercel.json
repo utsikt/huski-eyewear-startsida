@@ -1,6 +1,0 @@
-{
-  "redirects": [
-    { "source": "/", "has": [{ "type": "host", "value": "huskieyewear.com" }], "destination": "https://www.huskieyewear.com/coming-soon/", "permanent": false },
-    { "source": "/", "has": [{ "type": "host", "value": "www.huskieyewear.com" }], "destination": "/coming-soon/", "permanent": false }
-  ]
-}
