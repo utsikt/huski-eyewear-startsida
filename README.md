@@ -1,6 +1,5 @@
 # HUSKI EYEWEAR website, version 2.0
 
-Built 2026-09-16. NOT pushed. NOT published anywhere.
 
 `../forhandsvisning/` is version 1.0 and is untouched. It is the rollback:
 it is the folder that is wired to the git repo and to Vercel. This folder is a
