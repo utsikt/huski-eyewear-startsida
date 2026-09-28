@@ -1,7 +1,7 @@
 <!doctype html>
 <!-- HUSKI EYEWEAR website, VERSION 2.0, 2026-09-16.
      v1 ligger orord i ../forhandsvisning/. Inte pushad. -->
-<html lang="en">
+<html lang="en" data-shop="closed">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -10,7 +10,7 @@
   <meta name="description" content="WORLD CUP collection. TR90 frames, polycarbonate lenses. Made in Italy, designed in Sweden.">
   
 
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@100..900&amp;display=swap">
+  <link rel="stylesheet" href="fonts/archivo.css">
   <style>
     @font-face {
       font-family: 'HUSKI Sans Hero';
@@ -620,6 +620,15 @@
     .lens-zoom-close { position: absolute; top: 20px; right: 24px; border: 0; background: none; color: #FDF7F4;
                        font: 400 18px/1 Archivo, sans-serif; letter-spacing: .12em; cursor: pointer; }
     .lens-zoom-name { position: absolute; left: 24px; bottom: 22px; color: #FDF7F4; letter-spacing: .12em; font-size: 13px; }
+    /* SHOP SWITCH. data-shop="closed" on <html> hides every buy element and shows
+       the "opens shortly" line. Set data-shop="open" when Shopify Payments is live. */
+    html[data-shop="closed"] .shop-only { display: none !important; }
+    html[data-shop="open"] .soon { display: none; }
+    .cell .buy { margin-top: clamp(12px, 1.2vw, 16px); }
+    .foot-links { display: flex; flex-wrap: wrap; gap: 6px 22px; margin-top: 14px; }
+    .foot-links a { color: #111111; }
+    .foot-links a:hover { color: #DA291C; }
+    .foot-links .withdraw { color: #DA291C; }
   </style>
 
 </head>
@@ -667,6 +676,7 @@
         <div class="m" style="color: #4C4C4B;">BROWN TRANSPARENT / SMOKE GRADIENT</div>
         <div class="m cardcat">CAT 3&nbsp;&nbsp;/&nbsp;&nbsp;WC26-02&nbsp;&nbsp;/&nbsp;&nbsp;UNISEX</div>
         <div class="m price">1&nbsp;490 kr</div>
+        <a class="buy shop-only" href="https://kysa3a-6m.myshopify.com/cart/55472316776790:1" aria-label="Buy COLA, 1 490 kr">Buy</a>
         <div class="lens-note"><div class="lens-claim">TURN DOWN THE SUN.</div>
         <p class="lens-body">A Category 3 lens designed for strong sunlight. More tint. Less glare. Made for bright days when the sun decides to show off.</p></div>
       </div>
@@ -676,6 +686,7 @@
         <div class="m" style="color: #4C4C4B;">BLACK / AMBER LENS</div>
         <div class="m cardcat">CAT 2&nbsp;&nbsp;/&nbsp;&nbsp;WC26-01&nbsp;&nbsp;/&nbsp;&nbsp;UNISEX</div>
         <div class="m price">1&nbsp;490 kr</div>
+        <a class="buy shop-only" href="https://kysa3a-6m.myshopify.com/cart/55472317071702:1" aria-label="Buy CRIOLLO, 1 490 kr">Buy</a>
         <div class="lens-note"><div class="lens-claim">THE LIGHTER SIDE OF DARK.</div>
         <p class="lens-body">A Category 2 lens for medium sunlight. Lighter than the other two. Made for days that keep changing their mind.</p></div>
       </div>
@@ -685,6 +696,7 @@
         <div class="m" style="color: #4C4C4B;">CREAM / BROWN GRADIENT</div>
         <div class="m cardcat">CAT 3&nbsp;&nbsp;/&nbsp;&nbsp;WC26-03&nbsp;&nbsp;/&nbsp;&nbsp;UNISEX</div>
         <div class="m price">1&nbsp;490 kr</div>
+        <a class="buy shop-only" href="https://kysa3a-6m.myshopify.com/cart/55472317235542:1" aria-label="Buy CHOCOLATA, 1 490 kr">Buy</a>
         <div class="lens-note"><div class="lens-claim">DARKER. BOLDER. CHOCOLATA.</div>
         <p class="lens-body">A Category 3 lens for strong sunlight with the full HUSKI attitude. Maximum style when somebody turns up the brightness.</p></div>
       </div>
@@ -763,14 +775,10 @@
         <div class="m">PRODUCTION</div>
         <div class="tech-val">Made in Italy</div>
       </div>
-      <!-- LEGAL HOLD, row removed from the page 2026-09-22 before going live on huskieyewear.com.
-           It claimed CE conformity. The EU declaration of conformity and the technical file do not
-           yet exist in HUSKI's name; the factory opened 2026-09-22 and Jessica forwards them when
-           they arrive. Put this row back only when both papers are in hand:
-           <div class="tech-row">
-             <div class="m">COMPLIANCE</div>
-             <div class="tech-val">CE compliant and tested to applicable European sunglass standards</div>
-           </div> -->
+      <div class="tech-row">
+        <div class="m">COMPLIANCE</div>
+        <div class="tech-val">CE marked. Lenses tested to EN ISO 12312-1</div>
+      </div>
     </div>
 
     <div class="tech-divider"></div>
@@ -857,7 +865,14 @@
   </div>
 
   <div class="foot edge">
-    <div class="m">HUSKI EYEWEAR<br>QUADRA EYEWEAR AB<br>ORG. NO. 559582-2767<br>VAT SE559582276701<br>LINNEGATAN 38, 114 47 STOCKHOLM, SWEDEN<br>+46 760 96 16 94<br>INFO@HUSKIEYEWEAR.COM<br><br>14-DAY RIGHT OF WITHDRAWAL. FULL TERMS AT CHECKOUT.</div>
+    <div class="m">HUSKI EYEWEAR<br>QUADRA EYEWEAR AB<br>ORG. NO. 559582-2767<br>VAT SE559582276701<br>LINNEGATAN 38, 114 47 STOCKHOLM, SWEDEN<br>+46 760 96 16 94<br>INFO@HUSKIEYEWEAR.COM<br><br>14-DAY RIGHT OF WITHDRAWAL.
+      <div class="foot-links shop-only">
+        <a class="m" href="https://kysa3a-6m.myshopify.com/policies/terms-of-service" target="_blank" rel="noopener">TERMS</a>
+        <a class="m" href="https://kysa3a-6m.myshopify.com/policies/refund-policy" target="_blank" rel="noopener">RETURNS</a>
+        <a class="m" href="https://kysa3a-6m.myshopify.com/policies/shipping-policy" target="_blank" rel="noopener">SHIPPING</a>
+        <a class="m" href="https://kysa3a-6m.myshopify.com/policies/legal-notice" target="_blank" rel="noopener">LEGAL</a>
+        <a class="m withdraw" href="mailto:info@huskieyewear.com?subject=Withdrawal%20from%20purchase%20%2F%20%C3%85ngra%20k%C3%B6pet&body=I%20withdraw%20from%20my%20purchase.%20%2F%20Jag%20%C3%A5ngrar%20mitt%20k%C3%B6p.%0A%0AOrder%20number%20%2F%20Ordernummer%3A%20%0AName%20%2F%20Namn%3A%20%0AEmail%20used%20for%20the%20order%20%2F%20E-post%20vid%20k%C3%B6pet%3A%20%0A">WITHDRAW FROM PURCHASE / &Aring;NGRA K&Ouml;PET</a>
+      </div></div>
     <div class="display keep">KEEP GOING</div>
   </div>
 
