@@ -643,13 +643,19 @@
     .foot-links { display: flex; flex-wrap: wrap; gap: 6px 22px; margin-top: 14px; }
     .foot-links a { color: #111111; }
     .foot-links a:hover { color: #DA291C; }
-    .foot-links .withdraw { color: #DA291C; }
-    .foot-links .friends-toggle { cursor: pointer; }
-    .friends { display: flex; flex-wrap: wrap; align-items: center; gap: 18px; margin-top: 18px; }
-    .friends[hidden] { display: none; }
-    .friends a { display: block; line-height: 0; transition: opacity .2s ease-out; }
-    .friends a:hover { opacity: .8; }
-    .friends img { height: 44px; width: auto; display: block; }
+    .foot-links a + a { position: relative; padding-left: 20px; }
+    .foot-links a + a::before { content: ""; position: absolute; left: 0; top: 50%; width: 1px;
+                                height: 1.1em; transform: translateY(-50%); background: rgba(17,17,17,.28); }
+    .foot-links { gap: 6px 0; }
+    .foot-links a + a { margin-left: 20px; }
+    .foot-withdraw { display: inline-block; margin-top: 14px; color: #DA291C; }
+    .foot-withdraw:hover { color: #B01F16; }
+    .friends { margin-top: 30px; padding-top: 22px; border-top: 1px solid rgba(17,17,17,.14); }
+    .friends-h { color: #4C4C4B; margin-bottom: 14px; }
+    .friends-logos { display: flex; flex-wrap: wrap; align-items: center; gap: 14px; }
+    .friends-logos a { display: block; line-height: 0; transition: opacity .2s ease-out; }
+    .friends-logos a:hover { opacity: .8; }
+    .friends-logos img { height: 40px; width: auto; display: block; }
   </style>
 
 </head>
@@ -897,12 +903,14 @@
         <a class="m" href="https://kysa3a-6m.myshopify.com/policies/refund-policy" target="_blank" rel="noopener">RETURNS</a>
         <a class="m" href="https://kysa3a-6m.myshopify.com/policies/shipping-policy" target="_blank" rel="noopener">SHIPPING</a>
         <a class="m" href="https://kysa3a-6m.myshopify.com/policies/legal-notice" target="_blank" rel="noopener">LEGAL</a>
-        <a class="m friends-toggle" tabindex="0" role="button" data-act="friends" aria-expanded="false" aria-controls="friends">OUR FRIENDS</a>
-        <a class="m withdraw" href="mailto:info@huskieyewear.com?subject=Withdrawal%20from%20purchase%20%2F%20%C3%85ngra%20k%C3%B6pet&body=I%20withdraw%20from%20my%20purchase.%20%2F%20Jag%20%C3%A5ngrar%20mitt%20k%C3%B6p.%0A%0AOrder%20number%20%2F%20Ordernummer%3A%20%0AName%20%2F%20Namn%3A%20%0AEmail%20used%20for%20the%20order%20%2F%20E-post%20vid%20k%C3%B6pet%3A%20%0A">WITHDRAW FROM PURCHASE / &Aring;NGRA K&Ouml;PET</a>
       </div>
-      <div class="friends" id="friends" hidden>
-        <a href="https://www.huskichocolate.com" target="_blank" rel="noopener" aria-label="HUSKI CHOCOLATE"><img src="friend-huski-chocolate.svg" alt="HUSKI CHOCOLATE" width="80" height="44"></a>
-        <a href="https://www.huskiwear.com" target="_blank" rel="noopener" aria-label="HUSKI WEAR"><img src="friend-huski-wear.svg" alt="HUSKI WEAR" width="77" height="44"></a>
+      <a class="m foot-withdraw shop-only" href="mailto:info@huskieyewear.com?subject=Withdrawal%20from%20purchase%20%2F%20%C3%85ngra%20k%C3%B6pet&body=I%20withdraw%20from%20my%20purchase.%20%2F%20Jag%20%C3%A5ngrar%20mitt%20k%C3%B6p.%0A%0AOrder%20number%20%2F%20Ordernummer%3A%20%0AName%20%2F%20Namn%3A%20%0AEmail%20used%20for%20the%20order%20%2F%20E-post%20vid%20k%C3%B6pet%3A%20%0A">WITHDRAW FROM PURCHASE / &Aring;NGRA K&Ouml;PET</a>
+      <div class="friends" id="friends">
+        <div class="m friends-h">OUR FRIENDS</div>
+        <div class="friends-logos">
+        <a href="https://www.huskichocolate.com" target="_blank" rel="noopener" aria-label="HUSKI CHOCOLATE"><img src="friend-huski-chocolate.svg" alt="HUSKI CHOCOLATE" width="73" height="40"></a>
+        <a href="https://www.huskiwear.com" target="_blank" rel="noopener" aria-label="HUSKI WEAR"><img src="friend-huski-wear.svg" alt="HUSKI WEAR" width="70" height="40"></a>
+        </div>
       </div></div>
     <div class="display keep">KEEP GOING</div>
   </div>
@@ -1047,12 +1055,6 @@
     if (act === 'top')    { openCart(false); window.scrollTo({ top: 0, behavior: 'smooth' }); return; }
     if (act === 'cart')   { openCart(true); return; }
     if (act === 'close')  { openCart(false); return; }
-    if (act === 'friends') {
-      var f = $('friends'), open = f.hasAttribute('hidden');
-      if (open) f.removeAttribute('hidden'); else f.setAttribute('hidden', '');
-      t.setAttribute('aria-expanded', open ? 'true' : 'false');
-      return;
-    }
     var parts = act.split(':'), what = parts[0], key = parts[1];
     if (!(key in n)) return;
     if (what === 'add') { n[key] += 1; flash(NAMES[key] + ' added to cart'); }
