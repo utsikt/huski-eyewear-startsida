@@ -545,6 +545,10 @@
     .ret-links { display: flex; flex-wrap: wrap;
                  gap: clamp(12px, 1.4vw, 20px);
                  margin-top: clamp(10px, 1.2vw, 16px); padding-top: 0; }
+    /* Thin divider between the web address and Instagram. */
+    .ret-links .ret-link + .ret-link { position: relative; padding-left: clamp(12px, 1.4vw, 20px); }
+    .ret-links .ret-link + .ret-link::before { content: ""; position: absolute; left: 0; top: 50%;
+                 width: 1px; height: 1.1em; transform: translateY(-50%); background: rgba(17,17,17,.28); }
 
     /* Two classes in every link rule, so the page's own `a` and `.m` rules
        do not win. The remaining !important rules sit in the 820 px query and
