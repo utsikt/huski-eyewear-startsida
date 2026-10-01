@@ -650,6 +650,37 @@
     .foot-links a + a { margin-left: 20px; }
     .foot-withdraw { display: inline-block; margin-top: 14px; color: #DA291C; }
     .foot-withdraw:hover { color: #B01F16; }
+    /* Withdrawal panel: same frame as the cart. */
+    .wd-intro { color: #4C4C4B; font-family: 'Archivo', system-ui, sans-serif;
+                font-size: 14px; line-height: 1.55; margin: 0 0 26px; max-width: 40ch; }
+    .wd-field { display: block; margin-bottom: 22px; }
+    .wd-field .m { display: block; color: #4C4C4B; margin-bottom: 8px; }
+    .wd-field input { width: 100%; box-sizing: border-box; border: 0; border-bottom: 1px solid #111111;
+                      background: transparent; padding: 8px 0 9px; border-radius: 0;
+                      font-family: 'Archivo', system-ui, sans-serif; font-size: 16px; color: #111111; }
+    .wd-field input:focus { outline: none; border-bottom-color: #DA291C; }
+    .wd-field.bad input { border-bottom-color: #DA291C; }
+    .wd-err { color: #DA291C; font-family: 'Archivo', system-ui, sans-serif; font-size: 13px;
+              min-height: 1.2em; margin: -6px 0 14px; }
+    .wd-hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+    .wd-sum { border-top: 1px solid rgba(17,17,17,.14); margin: 0 0 22px; }
+    .wd-sum div { display: flex; justify-content: space-between; gap: 18px; padding: 13px 0;
+                  border-bottom: 1px solid rgba(17,17,17,.14); }
+    .wd-sum dt, .wd-sum .k { color: #4C4C4B; }
+    .wd-sum .v { font-family: 'Archivo', system-ui, sans-serif; font-size: 15px; text-align: right;
+                 overflow-wrap: anywhere; }
+    .wd-go { display: inline-block; border: 0; margin-top: 4px; padding: 14px 58px 15px;
+             font-family: 'Archivo', system-ui, sans-serif; font-weight: 600; font-size: 12px;
+             letter-spacing: .22em; text-transform: uppercase; color: #FFFFFF; white-space: nowrap;
+             background: transparent url("bar.png") center / 104% 235% no-repeat; cursor: pointer;
+             user-select: none; -webkit-user-select: none; }
+    .wd-go[disabled] { opacity: .55; cursor: wait; }
+    .wd-back { display: table; margin-top: 20px; color: #4C4C4B; cursor: pointer; }
+    .wd-step[hidden] { display: none; }
+    .wd-done-h { font-family: 'HUSKI Sans Hero', system-ui, sans-serif; font-size: 26px;
+                 line-height: 1.05; margin: 0 0 16px; }
+    @media (max-width: 520px) { .wd-go { width: 100%; text-align: center; padding-left: 0; padding-right: 0; }
+                                .wd-back { display: block; margin: 18px 0 0; } }
     .friends { margin-top: 30px; padding-top: 22px; border-top: 1px solid rgba(17,17,17,.14); }
     .friends-h { color: #4C4C4B; margin-bottom: 14px; }
     .friends-logos { display: flex; flex-wrap: wrap; align-items: center; gap: 14px; }
@@ -904,7 +935,7 @@
         <a class="m" href="https://kysa3a-6m.myshopify.com/policies/shipping-policy" target="_blank" rel="noopener">SHIPPING</a>
         <a class="m" href="https://kysa3a-6m.myshopify.com/policies/legal-notice" target="_blank" rel="noopener">LEGAL</a>
       </div>
-      <a class="m foot-withdraw shop-only" href="mailto:info@huskieyewear.com?subject=Withdrawal%20from%20purchase%20%2F%20%C3%85ngra%20k%C3%B6pet&body=I%20withdraw%20from%20my%20purchase.%20%2F%20Jag%20%C3%A5ngrar%20mitt%20k%C3%B6p.%0A%0AOrder%20number%20%2F%20Ordernummer%3A%20%0AName%20%2F%20Namn%3A%20%0AEmail%20used%20for%20the%20order%20%2F%20E-post%20vid%20k%C3%B6pet%3A%20%0A">WITHDRAW FROM PURCHASE / &Aring;NGRA K&Ouml;PET</a>
+      <a class="m foot-withdraw shop-only" href="mailto:info@huskieyewear.com?subject=Withdrawal%20from%20purchase%20%2F%20%C3%85ngra%20k%C3%B6pet&body=I%20withdraw%20from%20my%20purchase.%20%2F%20Jag%20%C3%A5ngrar%20mitt%20k%C3%B6p.%0A%0AOrder%20number%20%2F%20Ordernummer%3A%20%0AName%20%2F%20Namn%3A%20%0AEmail%20used%20for%20the%20order%20%2F%20E-post%20vid%20k%C3%B6pet%3A%20%0A" data-act="withdraw">WITHDRAW FROM PURCHASE / &Aring;NGRA K&Ouml;PET</a>
       <div class="friends" id="friends">
         <div class="m friends-h">OUR FRIENDS</div>
         <div class="friends-logos">
@@ -978,6 +1009,51 @@
     </div>
    </div>
   </div>
+  <div class="cartover" id="withdrawover">
+   <div class="cartpanel" role="dialog" aria-modal="true" aria-label="Withdraw from purchase">
+    <div class="cartbar">
+      <div class="cart-h">Withdraw</div>
+      <a class="m close" tabindex="0" role="button" data-act="close">CLOSE</a>
+    </div>
+    <div class="cartwrap">
+      <form class="wd-step" id="wd-1" novalidate>
+        <p class="wd-intro">Changed your mind? You can withdraw from your purchase within 14 days of receiving it.<br>
+        Ångra ditt köp inom 14 dagar från att du fick varan.</p>
+        <label class="wd-field"><span class="m">Name / Namn</span><input name="name" autocomplete="name" required></label>
+        <label class="wd-field"><span class="m">Order number / Ordernummer</span><input name="order" placeholder="#1001" required></label>
+        <label class="wd-field"><span class="m">Email for your receipt / E-post för kvitto</span><input name="email" type="email" autocomplete="email" required></label>
+        <label class="wd-hp" aria-hidden="true">Website<input name="website" tabindex="-1" autocomplete="off"></label>
+        <div class="wd-err" id="wd-err1" role="alert"></div>
+        <button class="wd-go" type="submit">Continue</button>
+      </form>
+
+      <div class="wd-step" id="wd-2" hidden>
+        <p class="wd-intro">Check the details and confirm.<br>Kontrollera uppgifterna och bekräfta.</p>
+        <div class="wd-sum">
+          <div><span class="m k">Name</span><span class="v" id="wd-s-name"></span></div>
+          <div><span class="m k">Order</span><span class="v" id="wd-s-order"></span></div>
+          <div><span class="m k">Receipt to</span><span class="v" id="wd-s-email"></span></div>
+        </div>
+        <div class="wd-err" id="wd-err2" role="alert"></div>
+        <button class="wd-go" type="button" id="wd-confirm">Confirm withdrawal / Bekräfta</button>
+        <a class="m wd-back" tabindex="0" role="button" id="wd-back">Back</a>
+      </div>
+
+      <div class="wd-step" id="wd-3" hidden>
+        <div class="wd-done-h">Received.</div>
+        <p class="wd-intro">We received your withdrawal <span id="wd-time"></span>. A receipt is on its way to <span id="wd-to"></span>.<br>
+        Vi har tagit emot att du ångrar ditt köp. Ett kvitto är på väg till din e-post.</p>
+        <a class="wd-go" tabindex="0" role="button" data-act="close">Close</a>
+      </div>
+
+      <div class="wd-step" id="wd-4" hidden>
+        <p class="wd-intro">Something went wrong on our side. Send your withdrawal by email instead, and we will confirm it.<br>
+        Något gick fel hos oss. Skicka i stället ditt ångrande med e-post, så bekräftar vi det.</p>
+        <a class="wd-go" id="wd-mail" href="mailto:info@huskieyewear.com?subject=Withdrawal%20from%20purchase%20%2F%20%C3%85ngra%20k%C3%B6pet&body=I%20withdraw%20from%20my%20purchase.%20%2F%20Jag%20%C3%A5ngrar%20mitt%20k%C3%B6p.%0A%0AOrder%20number%20%2F%20Ordernummer%3A%20%0AName%20%2F%20Namn%3A%20%0AEmail%20used%20for%20the%20order%20%2F%20E-post%20vid%20k%C3%B6pet%3A%20%0A">Email info@huskieyewear.com</a>
+      </div>
+    </div>
+   </div>
+  </div>
 
   <div class="flash" id="flash" role="status" aria-live="polite"></div>
 </div>
@@ -1042,8 +1118,55 @@
     document.documentElement.style.overflow = on ? 'hidden' : '';
   }
 
+  // Withdrawal panel.
+  var wd = {};
+  function wdStep(n) {
+    [1, 2, 3, 4].forEach(function (i) { var el = $('wd-' + i); if (i === n) el.removeAttribute('hidden'); else el.setAttribute('hidden', ''); });
+  }
+  function openWithdraw(on) {
+    $('withdrawover').className = on ? 'cartover on' : 'cartover';
+    document.documentElement.style.overflow = on ? 'hidden' : '';
+    if (on) { if (!$('wd-3').hasAttribute('hidden')) { $('wd-1').reset(); } if ($('wd-2').hasAttribute('hidden')) wdStep(1); }
+  }
+  $('wd-1').addEventListener('submit', function (e) {
+    e.preventDefault();
+    var f = e.target, ok = true;
+    wd = { name: f.name.value.trim(), order: f.order.value.trim(), email: f.email.value.trim(), website: f.website.value };
+    [['name', !!wd.name], ['order', !!wd.order], ['email', /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(wd.email)]].forEach(function (c) {
+      f[c[0]].parentNode.className = c[1] ? 'wd-field' : 'wd-field bad';
+      if (!c[1]) ok = false;
+    });
+    $('wd-err1').textContent = ok ? '' : 'Please fill in all three fields. / Fyll i alla tre fälten.';
+    if (!ok) return;
+    $('wd-s-name').textContent = wd.name;
+    $('wd-s-order').textContent = wd.order;
+    $('wd-s-email').textContent = wd.email;
+    $('wd-err2').textContent = '';
+    wdStep(2);
+  });
+  $('wd-back').addEventListener('click', function () { wdStep(1); });
+  $('wd-confirm').addEventListener('click', function () {
+    var b = this;
+    b.disabled = true;
+    var done = function (stamp) {
+      $('wd-time').textContent = stamp;
+      $('wd-to').textContent = wd.email;
+      b.disabled = false;
+      wdStep(3);
+    };
+    // Local preview only: there is no server function on localhost, so show the receipt screen.
+    if (location.hostname === 'localhost' || location.hostname === '127.0.0.1') {
+      return setTimeout(function () { done(new Date().toLocaleString('sv-SE') + ' (preview)'); }, 500);
+    }
+    fetch('/api/withdraw', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(wd) })
+      .then(function (r) { return r.json().then(function (j) { return { ok: r.ok && j.ok, j: j }; }); })
+      .then(function (x) { if (x.ok) done(x.j.stamp); else throw new Error('send'); })
+      .catch(function () { b.disabled = false; wdStep(4); });
+  });
+
   document.addEventListener('click', function (e) {
     if (e.target.id === 'cartover') { openCart(false); return; }
+    if (e.target.id === 'withdrawover') { openWithdraw(false); return; }
     var t = e.target.closest('[data-act]');
     if (!t) return;
     e.preventDefault();
@@ -1054,7 +1177,8 @@
     if (act === 'stores') { openCart(false); jump('retailers'); return; }
     if (act === 'top')    { openCart(false); window.scrollTo({ top: 0, behavior: 'smooth' }); return; }
     if (act === 'cart')   { openCart(true); return; }
-    if (act === 'close')  { openCart(false); return; }
+    if (act === 'close')  { openCart(false); openWithdraw(false); return; }
+    if (act === 'withdraw') { openCart(false); openWithdraw(true); return; }
     var parts = act.split(':'), what = parts[0], key = parts[1];
     if (!(key in n)) return;
     if (what === 'add') { n[key] += 1; flash(NAMES[key] + ' added to cart'); }
@@ -1066,7 +1190,7 @@
   });
 
   document.addEventListener('keydown', function (e) {
-    if (e.key === 'Escape') openCart(false);
+    if (e.key === 'Escape') { openCart(false); openWithdraw(false); }
     if ((e.key === 'Enter' || e.key === ' ') && document.activeElement &&
         document.activeElement.hasAttribute('data-act')) {
       e.preventDefault();
