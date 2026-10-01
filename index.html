@@ -136,7 +136,7 @@
            text-transform: uppercase; color: #FFFFFF; white-space: nowrap;
            background-image: url("bar.png");
            background-size: 104% 235%; background-position: center;
-           background-repeat: no-repeat; }
+           background-repeat: no-repeat; user-select: none; -webkit-user-select: none; cursor: pointer; }
 
     @media (prefers-reduced-motion: no-preference) {
       /* penseldraget: mjuk penselspets som sveper, snabbt in och lyfter mot slutet */
@@ -645,6 +645,7 @@
       <a class="m" tabindex="0" role="button" data-act="tech">TECH</a>
       <a class="m navwide" tabindex="0" role="button" data-act="stores">STORES</a>
       <a class="m navwide" tabindex="0" role="button" data-act="about">ABOUT</a>
+      <a class="m shop-only" tabindex="0" role="button" data-act="cart">CART<span class="cartnum" id="cartnum"></span></a>
     </nav>
     <div class="pad"></div>
   </div>
@@ -676,7 +677,7 @@
         <div class="m" style="color: #4C4C4B;">BROWN TRANSPARENT / SMOKE GRADIENT</div>
         <div class="m cardcat">CAT 3&nbsp;&nbsp;/&nbsp;&nbsp;WC26-02&nbsp;&nbsp;/&nbsp;&nbsp;UNISEX</div>
         <div class="m price">1&nbsp;490 kr</div>
-        <a class="buy shop-only" href="https://kysa3a-6m.myshopify.com/cart/55472316776790:1" aria-label="Buy COLA, 1 490 kr">Buy</a>
+        <a class="buy shop-only" href="https://kysa3a-6m.myshopify.com/cart/55472316776790:1" data-act="add:cola" aria-label="Add COLA to cart, 1 490 kr">Add to cart</a>
         <div class="lens-note"><div class="lens-claim">TURN DOWN THE SUN.</div>
         <p class="lens-body">A Category 3 lens designed for strong sunlight. More tint. Less glare. Made for bright days when the sun decides to show off.</p></div>
       </div>
@@ -686,7 +687,7 @@
         <div class="m" style="color: #4C4C4B;">BLACK / AMBER LENS</div>
         <div class="m cardcat">CAT 2&nbsp;&nbsp;/&nbsp;&nbsp;WC26-01&nbsp;&nbsp;/&nbsp;&nbsp;UNISEX</div>
         <div class="m price">1&nbsp;490 kr</div>
-        <a class="buy shop-only" href="https://kysa3a-6m.myshopify.com/cart/55472317071702:1" aria-label="Buy CRIOLLO, 1 490 kr">Buy</a>
+        <a class="buy shop-only" href="https://kysa3a-6m.myshopify.com/cart/55472317071702:1" data-act="add:cri" aria-label="Add CRIOLLO to cart, 1 490 kr">Add to cart</a>
         <div class="lens-note"><div class="lens-claim">THE LIGHTER SIDE OF DARK.</div>
         <p class="lens-body">A Category 2 lens for medium sunlight. Lighter than the other two. Made for days that keep changing their mind.</p></div>
       </div>
@@ -696,7 +697,7 @@
         <div class="m" style="color: #4C4C4B;">CREAM / BROWN GRADIENT</div>
         <div class="m cardcat">CAT 3&nbsp;&nbsp;/&nbsp;&nbsp;WC26-03&nbsp;&nbsp;/&nbsp;&nbsp;UNISEX</div>
         <div class="m price">1&nbsp;490 kr</div>
-        <a class="buy shop-only" href="https://kysa3a-6m.myshopify.com/cart/55472317235542:1" aria-label="Buy CHOCOLATA, 1 490 kr">Buy</a>
+        <a class="buy shop-only" href="https://kysa3a-6m.myshopify.com/cart/55472317235542:1" data-act="add:choc" aria-label="Add CHOCOLATA to cart, 1 490 kr">Add to cart</a>
         <div class="lens-note"><div class="lens-claim">DARKER. BOLDER. CHOCOLATA.</div>
         <p class="lens-body">A Category 3 lens for strong sunlight with the full HUSKI attitude. Maximum style when somebody turns up the brightness.</p></div>
       </div>
@@ -880,6 +881,69 @@
     <div class="display keep">KEEP GOING</div>
   </div>
 
+  <div class="cartover" id="cartover" role="dialog" aria-modal="true" aria-label="Cart">
+    <div class="cartbar edge">
+      <a class="home" tabindex="0" role="button" aria-label="Till toppen" data-act="top"><img src="logo.png" alt="HUSKI EYEWEAR"></a>
+      <a class="m close" tabindex="0" role="button" data-act="close">CLOSE</a>
+    </div>
+    <div class="cartwrap edge">
+      <div class="cart-h">Cart</div>
+
+      <div class="line off" id="line-cola">
+        <div class="thumb"><img src="cola.webp" alt="COLA" loading="lazy"></div>
+        <div class="who">
+          <div class="nm">COLA</div>
+          <div class="m" style="color: #4C4C4B;">BROWN TRANSPARENT / SMOKE GRADIENT</div>
+          <div class="m" style="color: #4C4C4B;">50-23-145MM &nbsp;/&nbsp; WC26-02 &nbsp;/&nbsp; CAT 3</div>
+        </div>
+        <div class="who" style="align-items: flex-end;">
+          <div class="qty m"><span class="step" tabindex="0" role="button" aria-label="One less COLA" data-act="dec:cola">&minus;</span><span id="q-cola">0</span><span class="step" tabindex="0" role="button" aria-label="One more COLA" data-act="inc:cola">+</span></div>
+          <div class="m price" id="p-cola">1&nbsp;490 kr</div>
+          <div class="m step" tabindex="0" role="button" style="color: #4C4C4B;" data-act="rm:cola">Remove</div>
+        </div>
+      </div>
+
+      <div class="line off" id="line-cri">
+        <div class="thumb"><img src="criollo.webp" alt="CRIOLLO" loading="lazy"></div>
+        <div class="who">
+          <div class="nm">CRIOLLO</div>
+          <div class="m" style="color: #4C4C4B;">BLACK / AMBER LENS</div>
+          <div class="m" style="color: #4C4C4B;">50-23-145MM &nbsp;/&nbsp; WC26-01 &nbsp;/&nbsp; CAT 2</div>
+        </div>
+        <div class="who" style="align-items: flex-end;">
+          <div class="qty m"><span class="step" tabindex="0" role="button" aria-label="One less CRIOLLO" data-act="dec:cri">&minus;</span><span id="q-cri">0</span><span class="step" tabindex="0" role="button" aria-label="One more CRIOLLO" data-act="inc:cri">+</span></div>
+          <div class="m price" id="p-cri">1&nbsp;490 kr</div>
+          <div class="m step" tabindex="0" role="button" style="color: #4C4C4B;" data-act="rm:cri">Remove</div>
+        </div>
+      </div>
+
+      <div class="line off" id="line-choc">
+        <div class="thumb"><img src="chocolata.webp" alt="CHOCOLATA" loading="lazy"></div>
+        <div class="who">
+          <div class="nm">CHOCOLATA</div>
+          <div class="m" style="color: #4C4C4B;">CREAM / BROWN GRADIENT</div>
+          <div class="m" style="color: #4C4C4B;">50-23-145MM &nbsp;/&nbsp; WC26-03 &nbsp;/&nbsp; CAT 3</div>
+        </div>
+        <div class="who" style="align-items: flex-end;">
+          <div class="qty m"><span class="step" tabindex="0" role="button" aria-label="One less CHOCOLATA" data-act="dec:choc">&minus;</span><span id="q-choc">0</span><span class="step" tabindex="0" role="button" aria-label="One more CHOCOLATA" data-act="inc:choc">+</span></div>
+          <div class="m price" id="p-choc">1&nbsp;490 kr</div>
+          <div class="m step" tabindex="0" role="button" style="color: #4C4C4B;" data-act="rm:choc">Remove</div>
+        </div>
+      </div>
+
+      <div class="empty" id="empty">
+        <p>Your cart is empty.</p>
+        <a class="buy" tabindex="0" role="button" data-act="shop">Back to the collection</a>
+      </div>
+
+      <div class="sum off" id="sum">
+        <div class="m" style="color: #4C4C4B;">Shipping calculated at checkout</div>
+        <div class="tot"><span id="total">0</span> <span class="tot-unit">kr</span></div>
+        <a class="checkout" id="checkout" href="https://kysa3a-6m.myshopify.com/cart">Checkout</a>
+      </div>
+    </div>
+  </div>
+
   <div class="flash" id="flash" role="status" aria-live="polite"></div>
 </div>
 
@@ -887,10 +951,60 @@
 
 <script>
 (function () {
+  var PRICE = 1490;
+  var SHOP = 'https://kysa3a-6m.myshopify.com/cart/';
+  var VARIANT = { cola: '55472316776790', cri: '55472317071702', choc: '55472317235542' };
+  var NAMES = { cola: 'Cola', cri: 'Criollo', choc: 'Chocolata' };
+  var KEYS = ['cola', 'cri', 'choc'];
+  var STORE = 'huski-cart-v1';
+  var n = { cola: 0, cri: 0, choc: 0 };
+  var $ = function (id) { return document.getElementById(id); };
+  var flashTimer = null;
+
+  // The cart lives in this browser only. Storage can be blocked; the cart still works for the visit.
+  try {
+    var saved = JSON.parse(localStorage.getItem(STORE) || '{}');
+    KEYS.forEach(function (k) { var v = parseInt(saved[k], 10); if (v > 0 && v < 100) n[k] = v; });
+  } catch (err) {}
+  function save() { try { localStorage.setItem(STORE, JSON.stringify(n)); } catch (err) {} }
+
+  // 1490 -> "1 490", with a no-break space so the number never splits over two lines.
+  function money(v) { return String(v).replace(/\B(?=(\d{3})+(?!\d))/g, '\u00A0'); }
+
+  function draw() {
+    var total = 0, parts = [];
+    KEYS.forEach(function (k) {
+      total += n[k];
+      $('q-' + k).textContent = String(n[k]);
+      $('p-' + k).textContent = money(n[k] * PRICE) + '\u00A0kr';
+      $('line-' + k).className = n[k] > 0 ? 'line' : 'line off';
+      if (n[k] > 0) parts.push(VARIANT[k] + ':' + n[k]);
+    });
+    $('cartnum').textContent = total ? '(' + total + ')' : '';
+    $('total').textContent = money(total * PRICE);
+    $('checkout').href = SHOP + parts.join(',');
+    $('sum').className = total ? 'sum' : 'sum off';
+    $('empty').className = total ? 'empty off' : 'empty';
+  }
+
+  function flash(msg) {
+    var el = $('flash');
+    el.textContent = msg;
+    el.className = 'flash';
+    void el.offsetWidth;
+    el.className = 'flash on';
+    clearTimeout(flashTimer);
+    flashTimer = setTimeout(function () { el.className = 'flash'; }, 1700);
+  }
 
   function jump(id) {
     var el = document.getElementById(id);
     if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  function openCart(on) {
+    $('cartover').className = on ? 'cartover on' : 'cartover';
+    document.documentElement.style.overflow = on ? 'hidden' : '';
   }
 
   document.addEventListener('click', function (e) {
@@ -898,14 +1012,25 @@
     if (!t) return;
     e.preventDefault();
     var act = t.getAttribute('data-act');
-    if (act === 'shop')   { jump('shop'); return; }
-    if (act === 'about')  { jump('about-text'); return; }
-    if (act === 'tech')   { jump('tech'); return; }
-    if (act === 'stores') { jump('retailers'); return; }
-    if (act === 'top')    { window.scrollTo({ top: 0, behavior: 'smooth' }); return; }
+    if (act === 'shop')   { openCart(false); jump('shop'); return; }
+    if (act === 'about')  { openCart(false); jump('about-text'); return; }
+    if (act === 'tech')   { openCart(false); jump('tech'); return; }
+    if (act === 'stores') { openCart(false); jump('retailers'); return; }
+    if (act === 'top')    { openCart(false); window.scrollTo({ top: 0, behavior: 'smooth' }); return; }
+    if (act === 'cart')   { openCart(true); return; }
+    if (act === 'close')  { openCart(false); return; }
+    var parts = act.split(':'), what = parts[0], key = parts[1];
+    if (!(key in n)) return;
+    if (what === 'add') { n[key] += 1; flash(NAMES[key] + ' added to cart'); }
+    if (what === 'inc') { n[key] += 1; }
+    if (what === 'dec') { n[key] = Math.max(0, n[key] - 1); }
+    if (what === 'rm')  { n[key] = 0; }
+    save();
+    draw();
   });
 
   document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') openCart(false);
     if ((e.key === 'Enter' || e.key === ' ') && document.activeElement &&
         document.activeElement.hasAttribute('data-act')) {
       e.preventDefault();
@@ -913,6 +1038,7 @@
     }
   });
 
+  draw();
 })();
 </script>
 
