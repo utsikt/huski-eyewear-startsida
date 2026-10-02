@@ -99,6 +99,10 @@
        oavsett hur brett fonstret ar. */
     .origin .framebox { position: relative; width: 100%; }
     .origin img { display: block; width: 100%; height: auto; }
+    /* Quiet AI label on the closing image, same wording as the hero */
+    .origin .aitag { position: absolute; right: clamp(10px, 1.6vw, 24px); bottom: clamp(8px, 1.2vw, 18px);
+                     margin: 0; padding: 0; font-size: clamp(7px, 0.55vw, 9px); letter-spacing: .24em;
+                     line-height: 1; color: #FFFFFF; opacity: .55; pointer-events: none; }
     .origin p { margin: 0; padding-top: clamp(18px, 2.4vw, 34px); padding-bottom: clamp(18px, 2.4vw, 34px); }
 
     .foot { border-top: 1px solid #111111;
@@ -353,6 +357,9 @@
       .origin .framebox { height: auto; }
       .origin .framebox img { position: static !important; left: auto !important;
                               top: auto !important; }
+      /* The image is too low on a phone: the AI label sits under it on the paper */
+      .origin .aitag { position: static; display: block; text-align: right; font-size: 8px;
+                       padding: 8px clamp(16px, 2.8vw, 40px) 0; color: #111111; opacity: .5; }
 
       /* Lasbar smatext. Golvet lag pa 8 px, vilket ar for litet i en telefon. */
       .m { font-size: 11px; letter-spacing: .18em; line-height: 1.7; }
@@ -923,7 +930,7 @@
   </section>
 
   <div class="origin">
-    <div class="framebox"><img src="cover.jpg" alt="Delad bild: surfare i solnedgang till vanster, man i parkas i snostorm till hoger, bada i HUSKI EYEWEAR"></div>
+    <div class="framebox"><img src="cover.jpg" alt="Delad bild: surfare i solnedgang till vanster, man i parkas i snostorm till hoger, bada i HUSKI EYEWEAR"><span class="m aitag">AI-GENERATED PERSONS</span></div>
     <p class="m edge">MADE IN ITALY. DESIGNED IN SWEDEN.</p>
   </div>
 
